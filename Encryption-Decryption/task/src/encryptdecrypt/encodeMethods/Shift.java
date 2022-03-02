@@ -1,10 +1,25 @@
 package encryptdecrypt.encodeMethods;
 
-public class Shift {
+import encryptdecrypt.AlgorithmMethod;
+
+public class Shift implements AlgorithmMethod {
     private StringBuilder res;
 
     public Shift() {
         res = new StringBuilder();
+    }
+
+    @Override
+    public String implement(String input, int key, String command) {
+        res = new StringBuilder();
+
+        if (command.equals("enc")) {
+            res = encode(input, key);
+        } else if (command.equals("dec")) {
+            res = decode(input, key);
+        }
+
+        return res.toString().replace('|', '\\');
     }
 
     public StringBuilder encode(String input, int key) {
