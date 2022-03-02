@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import static encryptdecrypt.FileUsage.readFile;
+
 public class Parameters {
     private String command = "enc";
     private String strInput = "";
@@ -29,11 +31,7 @@ public class Parameters {
             }
             if (args[i].equals("-in")) {
                 File f = new File(args[i+1]);
-                try (Scanner scanner = new Scanner(f)) {
-                    strInput = scanner.nextLine();
-                } catch (NoSuchElementException | FileNotFoundException e) {
-                    System.out.println("Error: Cannot read file: " + e.getMessage());
-                }
+                strInput = readFile(f);
             }
             if (args[i].equals("-out")) {
                 fileOutput = new File("./" + args[i+1]);

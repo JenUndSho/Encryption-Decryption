@@ -1,7 +1,6 @@
 package encryptdecrypt;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import static encryptdecrypt.FileUsage.writeToFile;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,14 +12,11 @@ public class Main {
         } else if (params.getCommand().equals("dec")) {
             ed.setMethod(new Decoding());
         }
+
         String result = ed.implement(params.getStrInput(), params.getKey(), params.getAlgorithm());
 
         if (params.isOutputExist()) {
-            try (FileWriter fw = new FileWriter(params.getFileOutput())) {
-                fw.write(result);
-            } catch (IOException e) {
-                System.out.printf("Error: An exception occurs %s", e.getMessage());
-            }
+            writeToFile(params.getFileOutput(), result);
         }
         else {
             System.out.print(result);
